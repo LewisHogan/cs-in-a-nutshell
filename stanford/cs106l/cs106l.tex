@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[]{article}
 
 \input{../../common/preamble.tex}
 
@@ -11,6 +11,7 @@
 \maketitle
 \tableofcontents
 
+\newpage
 \section{Introduction}
 
 The goals of completing this module are:
@@ -100,7 +101,7 @@ len     equ $ - msg             ;length of our dear string
     \item Extremely fast (when well-written)
     \item Complete control over the program
 \end{itemize}
-So why don't we always use Assembly all the time?
+So why don't we use Assembly all the time?
 \end{question}
 
 \begin{answer}
@@ -168,7 +169,7 @@ The linker checks that every declared function has an implementation, which is w
 
 \begin{minipage}{\linewidth}
 \begin{exercise}[Compilation at home]
-g++ is an open source C++ compiler, Macs and Linux computers should have g++ automatically while on Window you can download a copy from \href{https://www.cs.odu.edu/~zeil/cs250PreTest/latest/Public/installingACompiler/#installing-the-cygwin-compiler}{here}.
+g++ is an open source C++ compiler, Macs and Linux computers should have g++ automatically while on Windows you can download a copy from \href{https://www.cs.odu.edu/~zeil/cs250PreTest/latest/Public/installingACompiler/#installing-the-cygwin-compiler}{here}.
 
 Try to compile the following program:
 \begin{lstlisting}[language=C++]
@@ -183,7 +184,8 @@ int main()
 }
 \end{lstlisting}
 
-\begin{lstlisting}[numbers=none, caption=How to compile a C++ program]
+To compile a C++ program using g++:
+\begin{lstlisting}[numbers=none]
     g++ main.cpp otherFile.cpp -o executableFileName
 \end{lstlisting}
 
@@ -194,8 +196,125 @@ It's recommended to enable three common compiler flags when compiling (modern) C
     \item -Wall (turn on most compiler warnings)
 \end{itemize}
 \end{exercise}
+\begin{solution}[Compilation at home]
+    Well done! Once you've completed the compilation and run the program you should have the following output:
+    \begin{lstlisting}[numbers=none]
+Hello, world!
+    \end{lstlisting}
+\end{solution}
 \end{minipage}
+
 
 \todo[inline]{Try and find a way to have something similar to lstlisting but for a specific word or phrase with shorter syntax}
 
+\section{Types and Structs}
+\subsection{Types}
+
+\begin{definition}
+    A statically typed language is a language which requires you to define the types of each variable.
+\end{definition}
+
+\begin{minipage}{0.45\linewidth}
+    Python
+    \begin{lstlisting}[language=Python, numbers=none]
+a = 3
+b = "test"
+
+def func(c):
+    # do something
+    \end{lstlisting}
+\end{minipage}
+\begin{minipage}{0.45\linewidth}
+    C++
+    \begin{lstlisting}[language=C++, numbers=none]
+int a = 3;
+string b = "test";
+
+void func(c) {
+    // do something
+}
+    \end{lstlisting}
+\end{minipage}
+
+C++ is a statically typed language, which offers several benefits:
+\begin{itemize}
+    \item Better performance
+    \item Easier to understand
+    \item Better error checking
+\end{itemize}
+
+Static typing also allows for catching errors at compile time.
+
+\begin{minipage}{0.45\linewidth}
+    Python
+    \begin{lstlisting}[language=Python, numbers=none]
+def add_3(x):
+    return first + 3
+add_3("10") # Returns "103", intentional behaviour or bug?
+    \end{lstlisting}
+\end{minipage}
+\begin{minipage}{0.45\linewidth}
+    C++
+    \begin{lstlisting}[language=C++, numbers=none]
+int add_3(int x) {
+    return first + 3;
+}
+add_3("10"); // Caught as a compile error
+    \end{lstlisting}
+\end{minipage}
+
+\begin{center}
+\begin{tabular}{c c}
+    Type & Example Value \\
+    \hline
+    int & 5 \\
+    double & 77.3 \\
+    string & "test" \\
+    bool & true \\
+    size\_t & 5 (only non-negative numbers)
+
+\end{tabular}
+\end{center}
+
+\begin{minipage}{\linewidth}
+    \begin{exercise}[Match the types]
+    \begin{lstlisting}[language=C++, numbers=none]
+______ a = "test";
+______ b = 3.2 * 5 - 1;
+______ c = 5 / 2;
+
+______ d(int foo) { return foo / 2; }
+______ e(double foo) { return foo / 2; }
+______ f(double foo) { return int(foo / 2); }
+
+______ g(double c) { 
+    std::cout << c << std::endl;    
+}
+\end{lstlisting}
+\end{exercise}
+\end{minipage}
+
+\begin{minipage}{\linewidth}
+    \begin{solution}[Match the types]
+        \begin{lstlisting}[language=C++, numbers=none]
+string a = "test";
+double b = 3.2 * 5 - 1;
+int c = 5 / 2;
+
+int d(int foo) { return foo / 2; }
+double e(double foo) { return foo / 2; }
+int f(double foo) { return int(foo / 2); }
+
+void g(double c) { 
+    std::cout << c << std::endl;    
+}
+\end{lstlisting}
+    \end{solution}
+\end{minipage}
+
+\subsection{Overloading}
+\subsection{Structs}
+\subsection{Pairs \& Tuples}
+\subsection{Type Deduction}
+\subsection{Structured Binding}
 \end{document}
