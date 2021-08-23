@@ -8,6 +8,13 @@
 
 \usepackage{listings} % Useful for code highlighting in various languages
 
+\usepackage{hyperref} % Hyperlink support
+\hypersetup{
+    colorlinks,
+    allcolors=., % . in xcolor means whatever the current colour is, meaning we prevent hyperref from overriding things
+    urlcolor=blue
+}
+
 % For new terms which might be unclear to the reader
 
 \newenvironment{definition}{
