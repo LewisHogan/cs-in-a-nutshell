@@ -1,0 +1,139 @@
+% Inspired by the notes template available at https://github.com/dev-aditya/LaTeX-template/
+
+\usepackage[dvipsnames]{xcolor} % Import a bunch of colours so we can use them for things like definitions or theorems.
+\usepackage[many]{tcolorbox} % Used for making those colour boxes and definitions
+
+\usepackage{amsthm}
+\theoremstyle{definition}
+
+\usepackage{listings} % Useful for code highlighting in various languages
+
+% For new terms which might be unclear to the reader
+
+\newenvironment{definition}{
+    \textbf{Definition}
+}
+% \newtheorem{definition}[section]{Definition} % A version with the number
+    
+\tcolorboxenvironment{definition}{
+    boxrule=0pt,
+    boxsep=4pt, % Padding of the content within the box
+    colback={White!90!Cerulean}, % 90% White, remaining is Cerulean for the background
+    enhanced jigsaw, % Jigsaw removes the thing box around the edges.
+    borderline west={2pt}{0pt}{Cerulean},
+    sharp corners,
+    before skip=10pt,
+    after skip=10pt,
+    breakable
+}
+
+% Notes that may help the user, even if they aren't introducing something new.
+\newenvironment{note}{
+    \textbf{Note}
+}
+% \newtheorem{note}{Note}
+
+\tcolorboxenvironment{note}{
+    boxrule=0pt,
+    boxsep=4pt, % Padding of the content within the box
+    colback={White!90!Yellow}, % 90% White, remaining is Cerulean for the background
+    enhanced jigsaw, % Jigsaw removes the thing box around the edges.
+    borderline west={2pt}{0pt}{Yellow},
+    sharp corners,
+    before skip=10pt,
+    after skip=10pt,
+    breakable
+}
+
+% Questions to test the reader
+\newenvironment{question}{
+    \textbf{Question}
+}
+% \newtheorem{question}{Danger}
+
+\tcolorboxenvironment{question}{
+    boxrule=0pt,
+    boxsep=4pt,
+    colback={White!90!Red},
+    enhanced jigsaw,
+    borderline west={2pt}{0pt}{Red},
+    sharp corners,
+    before skip=10pt,
+    after skip=10pt,
+    breakable
+}
+
+% Answers to the questions
+\newenvironment{answer}{
+    \textbf{Answer}
+}
+% \newtheorem{answer}{Solution}
+
+\tcolorboxenvironment{answer}{
+    boxrule=0pt,
+    boxsep=4pt,
+    colback={White!90!LimeGreen},
+    enhanced jigsaw,
+    borderline west={2pt}{0pt}{LimeGreen},
+    sharp corners,
+    before skip=10pt,
+    after skip=10pt,
+    breakable
+}
+
+\newtcbtheorem{tcbexercise}{Exercise}{
+    width=\textwidth,
+    colback=White!90!Yellow,
+    colframe=Orange!90,
+    colbacktitle=Orange!90,
+    fonttitle=\bfseries,
+    sharp corners,
+    boxrule=1pt,
+    breakable,
+    enhanced,
+    boxed title style={sharp corners},
+    attach boxed title to top left
+}{tcbexercise}
+
+\newenvironment{exercise}[1][]{
+    \begin{tcbexercise}{#1}{}
+}{ \end{tcbexercise} }
+
+\newtcbtheorem{tcbsolution}{Solution}{
+    width=\textwidth,
+    colback=White!90!LimeGreen,
+    colframe=LimeGreen!90,
+    colbacktitle=LimeGreen!90,
+    fonttitle=\bfseries,
+    sharp corners,
+    boxrule=1pt,
+    breakable,
+    enhanced,
+    boxed title style={sharp corners},
+    attach boxed title to top left
+}{tcbsolution}
+
+\newenvironment{solution}[1][]{
+    \begin{tcbsolution}{#1}{}
+}{ \end{tcbsolution} }
+
+\definecolor{codekeyword}{RGB}{182, 112, 203}
+\definecolor{codecomment}{RGB}{42, 101, 73}
+\definecolor{codeidentifier}{RGB}{0, 0, 0}
+\definecolor{codestring}{RGB}{163, 21, 21}
+
+\lstdefinestyle{code}{
+    breaklines=true,
+    numbers=left,
+    xleftmargin=12pt,
+    showstringspaces=false,
+    basicstyle=\footnotesize\ttfamily,
+    keywordstyle=\bfseries\color{codekeyword},
+    commentstyle=\color{codecomment},
+    identifierstyle=\color{codeidentifier},
+    stringstyle=\color{codestring},
+}
+
+\lstset{style=code}
+
+\author{Lewis Hogan}
