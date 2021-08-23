@@ -54,6 +54,24 @@
 \tcolorboxenvironment{question}{
     boxrule=0pt,
     boxsep=4pt,
+    colback={White!85!Orange},
+    enhanced jigsaw,
+    borderline west={2pt}{0pt}{Orange},
+    sharp corners,
+    before skip=10pt,
+    after skip=10pt,
+    breakable
+}
+
+% Danger
+\newenvironment{danger}{
+    \textbf{Danger}
+}
+% \newtheorem{warning}{Danger}
+
+\tcolorboxenvironment{danger}{
+    boxrule=0pt,
+    boxsep=4pt,
     colback={White!90!Red},
     enhanced jigsaw,
     borderline west={2pt}{0pt}{Red},

@@ -1,0 +1,67 @@
+\documentclass[12pt]{article}
+
+\input{../preamble.tex}
+
+\title{A sample document to show the preamble}
+\begin{document}
+    \maketitle
+    \tableofcontents
+    
+    \section{Environments}
+
+    \subsection{Definitions}
+    \begin{definition}
+        An environment is a structure used to format blocks of text in \LaTeX~documents.
+    \end{definition}
+
+    The definition environment is used to describe new and unfamiliar terms.
+    
+    \subsection{Notes}
+
+    \begin{note}
+        The syntax highlighting plugin being used for this preamble is called \emph{listings}    
+    \end{note}
+
+    The note environment is used for additional information that may be of interest to a reader, but should not be essential.
+
+    \subsection{Question}
+
+    \begin{question}
+        What is the formula for Pythagoras' theorem?
+    \end{question}
+
+    The question environment is used for prompting the user to consider a point of view.
+
+    \subsection{Answer}
+    
+    \begin{answer}
+        The formula for Pythagoras's theorem is \[
+          a^2+b^2=c^2  
+        \]
+        This is frequently used for calculating the \emph{hypotenuse} of any triangle with a right angle.
+    \end{answer}
+
+    The answer environment provides a solution for early prompted questions.
+
+    \subsection{Danger}
+
+    \begin{danger}
+        To compile \LaTeX~documents you need to make sure you've installed all the required packages! 
+    \end{danger}
+
+    The danger environment provides warnings about common pitfalls which make cause issues for the reader.
+
+    \subsection{Exercises}
+    
+    \begin{exercise}[Hello World!]
+        \lstinputlisting[language=C++]{sample_incomplete.cpp}
+    \end{exercise}
+    Exercises can provide code and feature syntax highlighting.
+
+    \subsection{Solutions}
+    \begin{solution}[Hello World!]
+        \lstinputlisting[language=C++]{sample_complete.cpp}
+    \end{solution}
+
+    Solutions provide the completed code for the corresponding exercise.
+\end{document}
