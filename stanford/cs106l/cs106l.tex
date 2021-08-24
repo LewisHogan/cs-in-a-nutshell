@@ -313,8 +313,252 @@ void g(double c) {
 \end{minipage}
 
 \subsection{Overloading}
+
+\begin{definition}
+    Overloading is when there are multiple functions with the same name, but a different call signature.
+\end{definition}
+
+\begin{lstlisting}[language=C++]
+double func(int x) {
+    return (double) x + 3; // cast int -> double 
+}
+
+double func(double x) {
+    return x * 3;
+}
+
+func(2); // uses the first implementation
+func(2.0); // uses the second
+\end{lstlisting}
+
+\begin{question}
+    Can you tell what the output of func(2) and func(2.0) are?
+\end{question}
+
+\begin{answer}
+func(2) will return 5.0 while func(2.0) will return 15.0
+\end{answer}
+
 \subsection{Structs}
+
+Sometimes we want to group data together, or have a function return multiple things.
+
+\begin{lstlisting}[language=C++]
+_____ getStudentWithID(int id) {
+    // how can we return the student's name, home county and age when we can only return one type?
+}
+
+// python:
+// return ("lewis", "essex", 23)
+\end{lstlisting}
+
+\begin{definition}
+    A struct is a group of named variables \emph{which each have their own type}
+\end{definition}
+
+\todo{Check the struct example works correctly}
+\begin{lstlisting}[language=C++]
+struct Student {
+    string name; // these are fields
+    string county;
+    int age;
+}
+
+Student s;
+s.name = "Lewis"; // the . operator is used to access fields
+s.county = "Essex";
+s.age = 23;
+\end{lstlisting}
+
+Grouping information together (via structs) is a really powerful tool, it can allow for passing or returning information around together.
+
+\begin{lstlisting}[language=C++]
+void printStudentInfo(Student student) {
+    cout << student.name << " from " << student.county;
+    cout << " (" << student.age <<  ")" << endl;
+}
+\end{lstlisting}
+
+\begin{note}
+There is a syntax called Abbreviated Struct Notation which makes it easy to quickly make structs.
+
+\begin{lstlisting}[language=C++, numbers=none]
+Student s = { "Lewis", "Essex", 23 };
+\end{lstlisting}
+
+Order is based on the original struct order.
+\end{note}
+
 \subsection{Pairs \& Tuples}
+
+\begin{definition}
+    A pair is a struct with two fields.
+\end{definition}
+
+\begin{lstlisting}[language=C++]
+int main() {
+    std::pair<bool, Student> query_result;
+    query_result.first = true;
+    Student s = query_result.second;
+}    
+\end{lstlisting}
+
+\begin{note}
+    std::pair is a \emph{template}. Any type can be used inside it; the type goes in the \textless\textgreater
+\end{note}
+
+A common use case is returning success status and the result.
+\begin{lstlisting}[language=C++]
+Student lookupStudent(string name){
+    Student blank;
+    if (notFound(name)) return std::make_pair(false, blank);
+
+    Student result = getStudentWithName(name);
+    return std::make_pair(true, result);
+}
+
+std::pair<bool, Student> output = lookupStudent("Lewis");
+\end{lstlisting}
+
+\begin{note}
+    std::make\_pair is a generic way to make a pair without explicitly writing a type!
+\end{note}
+
+\begin{definition}
+    A \emph{tuple} is a struct with lots of fields.
+\end{definition}
+
+\begin{lstlisting}[language=C++]
+int main() {
+    std::tuple<string, int, int> query_result;
+    string name = std::get<1>(query_result);
+    int num = std::get<2>(query_result);
+}
+\end{lstlisting}
+
+\begin{danger}
+std::tuple is \emph{uncommon} and won't be referenced much, generally datatypes like std::vector are more useful
+\end{danger}
+
+\begin{exercise}[Quadratic Equations]
+A general quadratic equation can always be written:
+\[
+    \textcolor{red}{a}x^2+\textcolor{blue}{b}x+\textcolor{green}{c}=0
+\]
+The solutions to a general quadractic equation are
+\[
+    \frac{
+        -b\pm \sqrt{b^2-4\textcolor{red}{a}\textcolor{green}{c}}
+    }{2\textcolor{red}{a}}
+\]
+\end{exercise}
+\begin{solution}[Quadratic Equations]
+One potential implementation of this algorithm is the following:
+\begin{lstlisting}[language=C++]
+std::pair<bool, std::pair<double, double>> quadratic(int a, int b, int c) {
+    double inside = (b * b) - 4*a*c;
+    std::pair<double, double> blank;
+    if (inside < 0) return std::make_pair(false, blank);
+
+    std::pair<double, double> answer = std::make_pair(
+        (-b + sqrt(inside)) / 2,
+        (-b - sqrt(inside)) / 2
+    );
+
+    return std::make_pair(true, answer);
+}
+\end{lstlisting}
+How does yours compare?
+
+Using this function would be done in the following manner:
+\begin{lstlisting}[language=C++]
+int main() {
+    int a, b, c;
+    std::cin >> a >> b >> c; // Grabs input from terminal
+    std::pair<bool, std::pair<double, double>> result = quadratic(a, b, c);
+    if (result.first) {
+        std::pair<double, double> solutions = result.second;
+        std::cout << solutions.first << solutions.second << std::endl;
+    } else {
+        std::cout << "No solutions found!" << std::endl;
+    }
+}
+\end{lstlisting}
+\end{solution}
+
 \subsection{Type Deduction}
+
+\begin{definition}
+    auto is a keyword that tells the compiler to deduce the type of a variable
+\end{definition}
+
+It's important to avoid being ambiguous or the compiler won't be able to decude types using auto.
+
+auto should be used when it makes a solution significantly easier to read and where manually writing the type does not provide much value.
+
+\begin{lstlisting}[language=C++, numbers=none, caption=Writing the full type]
+std::pair<bool, std::pair<double, double>> res = quadratic(a, b, c);
+\end{lstlisting}
+
+\begin{lstlisting}[language=C++, numbers=none, caption=The same code using auto]
+auto res = quadratic(a, b, c);
+\end{lstlisting}
+
+\begin{question}
+    What are the types for the following detected as by auto?
+    \begin{itemize}
+        \item 3
+        \item 4.3
+        \item 'X'
+        \item "Hello"
+        \item std::make\_pair(3, "Hello")
+    \end{itemize}
+\end{question}
+
+\begin{answer}
+    \begin{itemize}
+        \item intdouble
+        \item char
+        \item char* (a C style string)
+        \item std::pair\textless int, char* \textgreater
+    \end{itemize}
+\end{answer}
+
+\begin{note}
+    auto \emph{does not mean that the variable doesn't have a type}
+\end{note}
+
 \subsection{Structured Binding}
+\begin{definition}
+Structured binding lets variables be initialized \emph{directly} from the contents of a struct
+\end{definition}
+\begin{minipage}{0.5\linewidth}
+\begin{lstlisting}[language=C++, caption=Before, numbers=none]
+auto p = std::make_pair("s", 5);
+string a = s.first;
+int b = s.second;
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}{0.45\linewidth}
+\begin{lstlisting}[language=C++, caption=After, numbers=none]
+auto p = std::make_pair("s", 5);
+auto [a, b] = p;
+\end{lstlisting}
+\end{minipage}
+
+By combining all of these techniques, it is possible to make significantly more readable code:
+\begin{lstlisting}[language=C++]
+int main() {
+    int a, b, c;
+    std::cin >> a >> b >> c; // Grabs input from terminal
+    auto [found, solutions] = quadratic(a, b, c);
+    if (found) {
+        auto [x1, x2] = solutions;
+        std::cout << x1 << " " << x2 << std::endl;
+    } else {
+        std::cout << "No solutions found!" << std::endl;
+    }
+}
+\end{lstlisting}
+
 \end{document}
