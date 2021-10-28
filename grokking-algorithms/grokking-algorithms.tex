@@ -1,0 +1,55 @@
+\documentclass[]{article}
+\input{../common/preamble.tex}
+
+\begin{document}
+    \section{Arrays and linked lists}
+
+    \begin{definition}
+        An array is a \emph{contiguous} (all the elements are next to each other) collection of memory.
+    \end{definition}
+
+    Arrays are \emph{random access}, meaning that they can be accessed at any element directly.
+
+    \begin{definition}
+        A linked list is a collection of nodes in memory where each node contains an element and the pointer to the next node (if it exists)
+    \end{definition}
+
+    Unlike Arrays, Linked lists require traversal over each preceding node to get to the subsequent one, this means that the access is \emph{sequential}
+    \begin{note}
+        It's fairly common for a linked list to store the location of the first and last node, so operations involving those would almost always be $O(1)$
+    \end{note}
+
+    The operation speed of the data structures varies depending on the type of operation.
+
+    \vspace{.35cm}
+    \begin{tabular}{c | c | c}
+        & Array & List \\
+        \hline
+        Access & $O(1)$ & $O(n)$ \\
+        Insert & $O(n)$ & $O(1)$\footnotemark[1] \\
+        Delete & $O(n)$ & $O(1)$\footnotemark[1]
+    \end{tabular}
+    \vspace{.35cm}
+
+    \footnotetext[1]{Assuming the initial node is already accessed directly}
+    
+    Arrays are amazing for modification or accessing in place, but suffer when it comes to appending or removing elements, insertion into an array is a costly operation, as all the other elements will need to be shifted around, or in the worst case scenario (no free space) an entirely new, bigger array will need to be allocated.
+    
+    \begin{question}
+        Imagine you're creating an app which allows a user to enter a diary entry each day, this app will have few reads and many inserts.
+
+        Should this app use an \emph{array} or a \emph{list}?
+    \end{question}
+    \begin{answer}
+        A list would be a better solution here, as inserts to a list are $O(1)$ whereas to insert into an array is a $O(n)$ operation
+    \end{answer}
+    
+    It's often common to combine data structures, for example an array which contains a linked list at each slot. Such a technique can provide a lot of flexability and performance, so don't hesitate to mix and match.
+    % \section{Selection Sort}
+
+    % \begin{exercise}
+    %     You have a collection of films on your computer and for each director you have a count of number of films produced.
+        
+    %     You want to sort this list from most films produced to least films produced so that you can rank the most prolific directors.
+    % \end{exercise}
+\end{document}
